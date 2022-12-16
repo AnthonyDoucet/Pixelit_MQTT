@@ -2,11 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMqttClient>
-#include <QtGui>
-#include <QMessageBox>
-#include <QDebug>
-#include <QTimer>
+#include <pixelit.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,37 +19,25 @@ public:
     ~MainWindow();
 
 public slots:
-    void MQTTstateChanged(QMqttClient::ClientState state);
-    void MQTTmessageReceived(const QByteArray &msg, const QMqttTopicName &topic);
-    void MQTTsubscribe();
+    void setStateUI(QString str);
+    void setTextBrowserUI(QString str);
 
 private slots:
+    void btnSubscribe();
     ///@brief Slot positionChanged
     void positionChanged();
     ///@brief Slot changement de couleur
     void colorBtnClicked();
-    ///@brief Slot changemenet de brightness, Envoie la commande 0
+    ///@brief Slot changemenet de brightness
     void brightnessChanged();
-    ///@brief Slot changement de texte, Envoie la commande 1
+    ///@brief Slot changement de texte
     void updateText();
+    ///@brief Slot changement horloge
     void updateClock();
-
-
 
 private:
     Ui::MainWindow *ui;
-    QMqttClient *m_client;
-    QTimer *timer = new QTimer(this);
-
-    bool newValue;
-
-    QJsonObject json;
-    QJsonObject jcolor;
-    QJsonObject jposition;
-
-    QString text;
-    void sendCommand(unsigned);
-    void update();
+    Pixelit pixelit;
 };
 
 

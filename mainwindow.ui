@@ -326,7 +326,7 @@
         <enum>Qt::NoContextMenu</enum>
        </property>
        <property name="text">
-        <string>Brightness : 0</string>
+        <string>Brightness : 50</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -340,6 +340,9 @@
        </property>
        <property name="maximum">
         <number>255</number>
+       </property>
+       <property name="value">
+        <number>50</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -592,7 +595,7 @@
    <sender>subscribeBtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>MQTTsubscribe()</slot>
+   <slot>btnSubscribe()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>179</x>
@@ -691,7 +694,7 @@
   <slot>brightnessChanged()</slot>
   <slot>updateText()</slot>
   <slot>bitmapDraw()</slot>
-  <slot>MQTTsubscribe()</slot>
+  <slot>btnSubscribe()</slot>
   <slot>updateClock()</slot>
  </slots>
 </ui>
