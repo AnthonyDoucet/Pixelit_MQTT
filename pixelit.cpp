@@ -27,37 +27,33 @@ int Pixelit::init(QString hostname, unsigned port)
     m_client->connectToHost();
 }
 
-void Pixelit::setText(){
-     QJsonObject jtext;
-    /*
-    jtext["textString"] = ui->lineEditText->text();
-    jtext["bigFont"] = ui->checkBoxBigFont->isChecked();
-    jtext["scrollText"] = ui->checkBoxScroll->isChecked();
-    jtext["scrollTextDelay"] = ui->spinBoxScrollDelay->value();
-    jtext["centerText"] = ui->checkBoxCenter->isChecked();
+void Pixelit::setText(QString txt, bool bigFont, bool scrollText, int scrollTextDelay, bool centerText){
+    QJsonObject jtext;
+    jtext["textString"] = txt;
+    jtext["bigFont"] = bigFont;
+    jtext["scrollText"] = scrollText;
+    jtext["scrollTextDelay"] = scrollTextDelay;
+    jtext["centerText"] = centerText;
     jtext["position"] = jposition;
     jtext["color"] = jcolor;
     //jtext["hexColor"] = "#FFFFFF";
-    json["clock"] = "";
+
     json["text"] = jtext;
-    */
     newValue = true;
 }
 
-void Pixelit::setClock(){
-     QJsonObject jclock;
-    /*
-    jclock["show"] = ui->checkBoxShowClock->isChecked();
-    jclock["switchAktiv"] = ui->checkBoxAktiv->isChecked();
-    jclock["withSeconds"] = ui->checkBoxSeconds->isChecked();
-    jclock["switchSec"] = ui->spinBoxSwitchSec->value();
-    jclock["drawWeekDays"] = ui->checkBoxWeek->isChecked();
+void Pixelit::setClock(bool show, bool switchAktiv, bool withSeconds, int switchSec, bool drawWeekDays){
+    QJsonObject jclock;
+    jclock["show"] = show;
+    jclock["switchAktiv"] = switchAktiv;
+    jclock["withSeconds"] = withSeconds;
+    jclock["switchSec"] = switchSec;
+    jclock["drawWeekDays"] = drawWeekDays;
     jclock["color"] = jcolor;
     //jtext["hexColor"] = "#FFFFFF";
 
-    json["text"] = "";
     json["clock"] = jclock;
-    */
+
     newValue = true;
 }
 

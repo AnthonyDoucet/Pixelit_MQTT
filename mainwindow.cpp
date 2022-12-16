@@ -24,15 +24,12 @@ void MainWindow::positionChanged(){ pixelit.setPosition(ui->spinBoxPosition_X->v
 void MainWindow::btnSubscribe(){ pixelit.MQTTsubscribe(); }
 
 void MainWindow::colorBtnClicked(){
-
     QColor color = QColorDialog().getColor();
-
     QPalette pal = ui->btnColor->palette();
     pal.setColor(QPalette::Button, color);
     ui->btnColor->setAutoFillBackground(true);
     ui->btnColor->setPalette(pal);
     ui->btnColor->update();
-
     pixelit.setColor(color);
 }
 
@@ -41,9 +38,22 @@ void MainWindow::brightnessChanged(){
     ui->labelBrightness->setText(QString("Brightness: %1").arg(ui->sliderBrightness->value()));
 }
 
-void MainWindow::updateText(){ pixelit.setText(); }
+void MainWindow::updateText(){
+    pixelit.setText(  ui->lineEditText->text()
+                    , ui->checkBoxBigFont->isChecked()
+                    , ui->checkBoxScroll->isChecked()
+                    , ui->spinBoxScrollDelay->value()
+                    , ui->checkBoxCenter->isChecked());
+}
 
-void MainWindow::updateClock(){ pixelit.setClock(); }
+void MainWindow::updateClock(){
+    pixelit.setClock(  ui->checkBoxShowClock->isChecked()
+                     , ui->checkBoxAktiv->isChecked()
+                     , ui->checkBoxSeconds->isChecked()
+                     , ui->spinBoxSwitchSec->value()
+                     , ui->checkBoxWeek->isChecked()
+                     );
+}
 
 void MainWindow::setStateUI(QString str){ ui->labelStatus->setText(str); }
 
