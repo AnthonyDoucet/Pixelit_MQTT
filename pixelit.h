@@ -13,18 +13,18 @@ class Pixelit: public QObject
     Q_OBJECT
 public:
     Pixelit();
-    int init(QString hostname, unsigned port);
+    void init(QString hostname, unsigned port);
     void setMasterTopic(QString topic){ masterTopic = topic; };
     void setText(QString txt, bool bigFont, bool scrollText, int scrollTextDelay, bool centerText);
     void setClock(bool show, bool switchAktiv, bool withSeconds, int switchSec, bool drawWeekDays);
     void setColor(QColor);
     void setPosition(int x, int y);
     void setBrightness(int b);
+    void MQTTsubscribe();
 
-public slots:
+protected slots:
     void MQTTstateChanged(QMqttClient::ClientState state);
     void MQTTmessageReceived(const QByteArray &msg, const QMqttTopicName &topic);
-    void MQTTsubscribe();
 
 signals:
     void statusChanged(QString str);

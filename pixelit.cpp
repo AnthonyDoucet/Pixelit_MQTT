@@ -18,9 +18,10 @@ Pixelit::Pixelit()
     jcolor["r"] = 0;
     jcolor["g"] = 255;
     jcolor["b"] = 0;
+    newValue = false;
 }
 
-int Pixelit::init(QString hostname, unsigned port)
+void Pixelit::init(QString hostname, unsigned port)
 {
     m_client->setHostname(hostname);
     m_client->setPort(port) ;
@@ -38,6 +39,7 @@ void Pixelit::setText(QString txt, bool bigFont, bool scrollText, int scrollText
     jtext["color"] = jcolor;
     //jtext["hexColor"] = "#FFFFFF";
 
+    json["clock"] = " ";
     json["text"] = jtext;
     newValue = true;
 }
@@ -53,7 +55,7 @@ void Pixelit::setClock(bool show, bool switchAktiv, bool withSeconds, int switch
     //jtext["hexColor"] = "#FFFFFF";
 
     json["clock"] = jclock;
-
+    json["text"] = " ";
     newValue = true;
 }
 
@@ -69,8 +71,8 @@ void Pixelit::setPosition(int x, int y){
 }
 
 void Pixelit::setBrightness(int b){
-    json.insert("brightness", b);
-    //json["brightness"] = b;
+    json["brightness"] = b;
+    newValue = true;
 }
 
 void Pixelit::MQTTstateChanged(QMqttClient::ClientState state)
@@ -125,11 +127,9 @@ void Pixelit::timerEv()
 {
     if(newValue){
         newValue = false;
-
         auto time = QDateTime::currentDateTime().time().toString();
         qDebug() << time << json;
-
-         if (m_client->publish(QMqttTopicName(masterTopic + "/pixelitsetScreen"), QString(QJsonDocument(json).toJson()).toUtf8(), 0, false) == -1)
-                qDebug() << "publish Error";
+        if(m_client->publish(QMqttTopicName(masterTopic + "/pixelitsetScreen"), QString(QJsonDocument(json).toJson()).toUtf8(), 0, false) == -1)
+            qDebug() << "publish Error";
     }
 }
